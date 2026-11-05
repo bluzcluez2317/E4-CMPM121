@@ -4,15 +4,45 @@
   box-sizing: border-box;
 }
 
+:root {
+  --white: #e8fdff;
+  --cyan: #5ef2ff;
+  --grey: #6f86a8;
+  --orange: #ffe066;
+  --pink: #ff5ea8;
+  --red: #ff4d6d;
+
+  --body: radial-gradient(ellipse at 50% 30%, #1a0f3a, #04020c 70%);
+
+  --panel-border: rgba(94, 242, 255, 0.35);
+  --panel-background: rgba(14, 10, 34, 0.86);
+  --panel-inner-glow: rgba(94, 242, 255, 0.15);
+  --panel-outer-glow: rgba(94, 242, 255, 0.08);
+
+  --banner-background: rgba(14, 10, 34, 0.9);
+
+  --caption-background: rgba(4, 2, 12, 0.75);
+
+  --screen-inner: rgba(94, 242, 255, 0.35);
+  --screen-outer: rgba(94, 242, 255, 0.2);
+
+  --heading-font: 600 11px/1 Orbitron, "Trebuchet MS", sans-serif;
+  --body-font: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --gap: 14px;
+
+  --degree: 24deg;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   display: grid;
   place-content: center;
-  gap: 14px;
-  background: radial-gradient(ellipse at 50% 30%, #1a0f3a, #04020c 70%);
-  color: #e8fdff;
-  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  gap: var(--gap);
+  background: var(--body);
+  color: var(--white);
+  font-family: var(--body-font);
 }
 
 .cabinet {
@@ -26,26 +56,26 @@ body {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 14px;
+  gap: var(--gap);
   padding: 14px;
-  border: 1px solid rgba(94, 242, 255, 0.35);
+  border: 1px solid var(--panel-border);
   border-radius: 10px;
-  background: rgba(14, 10, 34, 0.86);
-  box-shadow: 0 0 24px rgba(94, 242, 255, 0.15), inset 0 0 18px rgba(94, 242,
-    255, 0.08);
+  background: var(--panel-background);
+  box-shadow: 0 0 24px var(--panel-inner-glow), inset 0 0 18px
+    var(--panel-outer-glow);
   transition: opacity 400ms, transform 400ms;
 }
 
 /* Each panel swings toward the screen and slightly overlaps its edge. */
 .panel-left {
   transform-origin: right center;
-  transform: translateX(18px) rotateY(24deg);
+  transform: translateX(18px) rotateY(var(--degree));
 }
 
 .panel-right {
   transform-origin: left center;
   transform: translateX(-18px) rotateY(calc(-1 *
-    24deg));
+    var(--degree)));
 }
 
 .cabinet[data-mode="title"] .panel,
@@ -55,21 +85,21 @@ body {
 
 h2 {
   margin: 0 0 4px;
-  font: 600 11px/1 Orbitron, "Trebuchet MS", sans-serif;
+  font: var(--heading-font);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #6f86a8;
+  color: var(--grey);
 }
 
 output {
   font-size: 22px;
-  color: #5ef2ff;
+  color: var(--cyan);
   text-shadow: 0 0 6px currentColor, 0 0 18px currentColor;
 }
 
 #best {
   font-size: 15px;
-  color: #ffe066;
+  color: var(--orange);
 }
 
 .pips,
@@ -87,11 +117,11 @@ output {
 }
 
 .pip {
-  color: #ff5ea8;
+  color: var(--pink);
 }
 
 .cell {
-  color: #ffe066;
+  color: var(--orange);
 }
 
 .pip.lit,
@@ -108,9 +138,9 @@ output {
   display: none;
   margin: 0;
   padding: 4px 8px;
-  border: 1px solid #ffe066;
+  border: 1px solid var(--orange);
   border-radius: 10px;
-  color: #ffe066;
+  color: var(--orange);
   text-align: center;
   font: 600 11px/1.4 Orbitron, "Trebuchet MS", sans-serif;
   letter-spacing: 0.2em;
@@ -128,8 +158,7 @@ output {
   height: 640px;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 0 2px rgba(94, 242, 255, 0.35), 0 0 40px rgba(94, 242, 255,
-    0.2);
+  box-shadow: 0 0 0 2px var(--screen-inner), 0 0 40px var(--screen-outer);
 }
 
 #game,
@@ -152,11 +181,11 @@ output {
   align-items: center;
   gap: 10px;
   font-size: 12px;
-  color: #6f86a8;
+  color: var(--grey);
 }
 
 .stop[data-state="cleared"] {
-  color: #5ef2ff;
+  color: var(--cyan);
 }
 
 .stop[data-state="cleared"] .stop-dot {
@@ -164,7 +193,7 @@ output {
 }
 
 .stop[data-state="current"] {
-  color: #ffe066;
+  color: var(--orange);
   text-shadow: 0 0 6px currentColor, 0 0 18px currentColor;
 }
 
@@ -173,11 +202,11 @@ output {
 }
 
 .stop:last-child {
-  color: #ff4d6d;
+  color: var(--red);
 }
 
 .boss {
-  color: #ff4d6d;
+  color: var(--red);
 }
 
 .boss h2 {
@@ -209,7 +238,8 @@ output {
   gap: 6px;
   padding: 14px;
   text-align: center;
-  background: linear-gradient(90deg, transparent, rgba(14, 10, 34, 0.9) 20% 80%,
+  background: linear-gradient(90deg, transparent, var(--banner-background) 20%
+    80%,
     transparent);
   pointer-events: none;
   opacity: 0;
@@ -223,7 +253,7 @@ output {
 .banner strong {
   font: 700 26px/1.1 Orbitron, "Trebuchet MS", sans-serif;
   letter-spacing: 0.12em;
-  color: #ffe066;
+  color: var(--orange);
   text-shadow: 0 0 6px currentColor, 0 0 18px currentColor;
 }
 
@@ -231,7 +261,7 @@ output {
   font-size: 13px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #e8fdff;
+  color: var(--white);
 }
 
 .caption {
@@ -239,8 +269,8 @@ output {
   inset: auto 8% 6%;
   margin: 0;
   padding: 10px 14px;
-  border-left: 3px solid #5ef2ff;
-  background: rgba(4, 2, 12, 0.75);
+  border-left: 3px solid var(--cyan);
+  background: var(--caption-background);
   font-size: 14px;
   line-height: 1.5;
   opacity: 0;
@@ -257,7 +287,7 @@ output {
   margin: 0;
   text-align: center;
   font-size: 12px;
-  color: #6f86a8;
+  color: var(--grey);
 }
 
 /* Impacts shake the whole cabinet; the panels keep their tilt while shaking. */
