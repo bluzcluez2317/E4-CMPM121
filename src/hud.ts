@@ -38,15 +38,12 @@ export class Hud {
   setRoute(names: readonly string[]): void {
     this.route.replaceChildren();
     this.stops = names.map((name) => {
-      const templateStop = this.stopTemplate.content.querySelector<
-        HTMLLIElement
-      >(
-        ".stop",
-      )!;
-      const stop = templateStop.cloneNode(true) as HTMLLIElement;
+      const fragment = this.stopTemplate.content.cloneNode(
+        true,
+      ) as DocumentFragment;
+      const stop = fragment.querySelector<HTMLElement>(".stop")!;
       stop.querySelector<HTMLElement>(".stop-name")!.textContent = name;
-
-      this.route.appendChild(stop);
+      this.route.appendChild(fragment);
       return stop;
     });
   }
